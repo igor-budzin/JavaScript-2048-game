@@ -46,6 +46,13 @@ export default class Game {
       ArrowLeft: this.#moveLeft.bind(this),
       ArrowRight: this.#moveRight.bind(this),
     };
+
+    this.#field = [
+      [null, null, null, null],
+      [null, null, null, null],
+      [null, null, null, null],
+      [null, null, null, null],
+    ];
   }
 
   init() {
@@ -72,6 +79,21 @@ export default class Game {
         });
       }
     });
+
+    document.querySelector('.reset-button')?.addEventListener('click', this.#reset.bind(this));
+  }
+
+  #reset() {
+    this.#field = [
+      [null, null, null, null],
+      [null, null, null, null],
+      [null, null, null, null],
+      [null, null, null, null],
+    ];
+
+    this.#score = 0;
+    this.#updateScore(0);
+    this.init();
   }
 
   #updateScore(valueToAdd: number) {
@@ -188,7 +210,7 @@ export default class Game {
       });
   }
 
-  #moveLeft(): Promise<unknown> | undefined {
+  #moveLeft() {
     const promises: Promise<unknown>[] = [];
     let isDidAnyActions = false;
 
@@ -245,7 +267,7 @@ export default class Game {
     return Promise.all(promises);
   }
 
-  #moveRight(): Promise<unknown> | undefined {
+  #moveRight() {
     const promises: Promise<unknown>[] = [];
     let isDidAnyActions = false;
 
@@ -302,7 +324,7 @@ export default class Game {
     return Promise.all(promises);
   }
 
-  #moveDown(): Promise<unknown> | undefined {
+  #moveDown() {
     const promises: Promise<unknown>[] = [];
     let isDidAnyActions = false;
 
@@ -359,7 +381,7 @@ export default class Game {
     return Promise.all(promises);
   }
 
-  #moveUp(): Promise<unknown> | undefined {
+  #moveUp() {
     const promises: Promise<unknown>[] = [];
     let isDidAnyActions = false;
 
